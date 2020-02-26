@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <style>
+        .label {
+            display: inline-block;
+            width: 6em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Bug Details</h1>
+
+    <span><span class='label'>Title:</span>
+    <%= bug.title %>
+        </span><br>
+
+        <span><span class='label'>Description:</span>
+        <%= bug.description %>
+            </span><br>
+            <span><span class='label'>Issuse Type:</span>
+            <%= bug.issue_type %>
+                </span><br>
+                <span><span class='label'>Priority:</span>
+                <%= bug.priority %>
+                    </span><br>
+
+                    <span><span class='label'>Status:</span>
+                    <%= bug.status %>
+                        </span><br>
+                    <p>
+                        <a href="/bugs">Back</a>
+                        <a href="/bugs/<%= bug.id %>/edit">Edit</a>
+                    </p>
+
+</body>
+
+</html>

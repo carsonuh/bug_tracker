@@ -1,0 +1,83 @@
+<%
+  let TYPE = ["Issue", "Enhancement", "Feature"];
+  let PRIORITY = ["Low", "Medium", "High"];
+  let STATUS = ["Open", "Closed", "Monitor"];
+
+  if (bug.id) {
+    submitLabel = "Update Bug";
+    route = `/bugs/${bug.id}`;
+  } else {
+    submitLabel = "Create Bug";
+    route = "/bugs";
+  }
+%>
+    <% if (bug.errors.length > 0) { %>
+        <% console.log("Found errors"); console.log(bug.errors); %>
+            <div>
+                <p>Errors:</p>
+                <ul>
+                    <%- bug.errors.map((item) => `<li>${item}</li>` ).join("\n"); %>
+                </ul>
+            </div>
+            <% } %>
+
+                <form action="<%=route%>" accept-charset="UTF-8" method="post">
+                    <div class="field">
+                        <label for="bug_title">Title</label>
+                        <input type="text" name="bug[title]" id="bug_title" value="<%= bug.title %>" />
+                    </div>
+
+                    <div class=" field ">
+                        <label for="bug_description ">Description</label>
+                        <textarea name="bug[description]" id="bug_description "><%= bug.description %></textarea>
+                    </div>
+
+                    <div class="field ">
+                        <label for="bug_type ">Type</label>
+
+                        <select id="bug_type" name="bug[issue_type]">
+                          <% TYPE.forEach((i) => {
+                            if(bug.issue_type === i){ %>
+                            <option value='<%= i %>' selected="selected"><%= i %></option>
+                            <% }
+                            else { %>
+                            <option value='<%= i %>'><%= i %></option>
+                            <%}
+
+                          });%>
+                          </select>
+                    </div>
+
+                    <div class="field ">
+                        <label for="bug_priority ">Priority</label>
+                        <select id="bug_priority" name="bug[priority]">
+                          <% PRIORITY.forEach((i) => {
+                            if(bug.priority === i){ %>
+                            <option value='<%= i %>' selected="selected"><%= i %></option>
+                            <% }
+                            else { %>
+                            <option value='<%= i %>'><%= i %></option>
+                            <%}
+
+                          });%>
+                          </select>
+                    </div>
+
+                    <div class="field ">
+                        <label for="bug_status ">Status</label>
+                        <select id="bug_status" name="bug[status]">
+                          <% STATUS.forEach((i) => {
+                            if(bug.status === i){ %>
+                            <option value='<%= i %>' selected="selected"><%= i %></option>
+                            <% }
+                            else { %>
+                            <option value='<%= i %>'><%= i %></option>
+                            <%}
+                          });%>
+                          </select>
+                    </div>
+
+                    <div class="actions ">
+                        <input type="submit" name="commit" value="<%= submitLabel %>" />
+                    </div>
+                </form>
