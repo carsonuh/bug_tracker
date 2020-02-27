@@ -10,6 +10,7 @@ class Bug {
       this.issue_type = description.issue_type;
       this.priority = description.priority;
       this.status = description.status;
+      this.userId = description.userId;
     }
     this.errors = [];
   }
@@ -63,11 +64,11 @@ class Bug {
 Bug.idCount = 0;
 Bug.allBugs = [];
 Bug.create({ title: 'App Crashing', description: 'This app is broken',
-issue_type: 'Issue', priority: 'High', status: 'Open'});
+issue_type: 'Issue', priority: 'High', status: 'Open', userId:1});
 Bug.create({ title: 'Needs Style', description: 'Too plain. Add style',
-issue_type: 'Enhancement', priority: 'High', status: 'Open'});
+issue_type: 'Enhancement', priority: 'High', status: 'Open', userId:2});
 Bug.create({ title: 'Email Server Down', description: 'Cant access email server',
-issue_type: 'Issue', priority: 'High', status: 'Closed'});
+issue_type: 'Issue', priority: 'High', status: 'Closed', userId:1});
 
 
 console.log(Bug.allBugs);

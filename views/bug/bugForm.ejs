@@ -77,6 +77,20 @@
                           </select>
                     </div>
 
+                    <div class="field ">
+                        <label for="bug_user ">User</label>
+                        <select id="bug_user" name="bug[userId]">
+                          <% user.forEach((i) => {
+                            if(bug.userId === i.id){ %>
+                            <option value='<%= i.id %>' selected="selected"><%= i.lname + ", " + i.fname%></option>
+                            <% }
+                            else { %>
+                            <option value='<%= i.id %>'><%= i.lname + ", " + i.fname%></option>
+                            <%}
+                          });%>
+                          </select>
+                    </div>
+
                     <div class="actions ">
                         <input type="submit" name="commit" value="<%= submitLabel %>" />
                     </div>

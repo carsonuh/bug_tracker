@@ -5,6 +5,7 @@
 
     <table>
         <tr>
+            <th>User</th>
             <th>Title</th>
             <th>Description</th>
             <th>Issue Type</th>
@@ -15,6 +16,10 @@
 
         <% bugs.forEach( (bug) => { %>
             <tr>
+                <td>
+                    <%= User.findName(bug.userId) %>
+                </td>
+
                 <td>
                     <%= bug.title %>
                 </td>

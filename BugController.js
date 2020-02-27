@@ -1,31 +1,36 @@
 const Bug = require('./Bug');
+const User = require('./User');
 
 /* Demonstrates a simple implementation of standard CRUD operations */
 class BugController {
 
     index(req, res) {
         let bugs = Bug.all();
-        res.render('bugIndex', { bugs: bugs });
+        let user = User.all();
+        res.render('bug/bugIndex', { bugs: bugs, User });
     }
 
     show(req, res) {
+        let user = User.all();
         let id = req.params.id;
         let bug = Bug.find(id);
 
         if (!bug) {
             res.send("Could not find bug with id of " + id);
         } else {
-            res.render('bugShow', { bug: bug });
+            res.render('bug/bugShow', { bug: bug, User });
         }
     }
 
     newBug(req, res) {
-        res.render('bugNew', { bug: new Bug() });
+        let user = User.all();
+        res.render('bug/bugNew', { bug: new Bug(), user: user });
     }
 
     create(req, res) {
         console.log("About to create bug");
         console.log(req.body);
+        let user = User.all();
         let newBug = Bug.create(req.body.bug);
 
 
@@ -35,18 +40,19 @@ class BugController {
             res.end();
         } else {
             newBug.id = undefined;
-            res.render('bugNew', { bug: newBug });
+            res.render('bug/bugNew', { bug: newBug, user: user });
         }
     }
 
     edit(req, res) {
+        let user = User.all();
         let id = req.params.id;
         let bug = Bug.find(id);
 
         if (!bug) {
             res.send("Could not find bug with id of " + id);
         } else {
-            res.render('bugEdit', { bug: bug });
+            res.render('bug/bugEdit', { bug: bug, user: user  } );
         }
     }
 
@@ -70,7 +76,7 @@ class BugController {
         let testBug = new Bug(req.body.bug);
         if (!testBug.isValid()) {
             testBug.id = bug.id;
-            res.render('bugEdit', { bug: testBug });
+            res.render('bug/bugEdit', { bug: testBug });
             return;
         }
 
@@ -82,6 +88,7 @@ class BugController {
             bug.issue_type = req.body.bug.issue_type;
             bug.priority = req.body.bug.priority;
             bug.status = req.body.bug.status;
+            bug.userId = req.body.bug.userId;
             // If using a database, we would need some kind of "save" method here.
 
             // Send a redirect to the "show" route for the new bug.
